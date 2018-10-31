@@ -24,3 +24,14 @@ Use the `--simulator` flag when running via command line to select a different s
 ```
 react-native run-ios --simulator="iPad"
 ```
+
+## Configuring AppCenter
+
+When setting up the project to build on AppCenter, these instructions were
+followed: https://docs.microsoft.com/en-us/appcenter/build/react-native/ios. If
+you have linked libraries using CocoaPods, you should commit the Pods directory
+and the XCworkspace **before** configuring the build. If done after configuring
+the build then delete the configuration and reconfigure.
+
+See https://docs.microsoft.com/en-us/appcenter/build/ios/code-signing for code
+signing instructions.
