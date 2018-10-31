@@ -50,3 +50,9 @@ special attention to the options available to the higher-order component, `codeP
 ## Configuring Typescript
 
 Follow these directions https://github.com/Microsoft/TypeScript-React-Native-Starter
+
+`apollo-client`, `aws-appsync`, `aws-appsync-react`, `react-apollo` all come
+with Typescript definitions directly. `aws-sdk`, `react`, `react-native`, `jest`
+all have type definitions available. `graphql-tag` recommends using
+`ts-transform-graphql-tag` instead if done via Typescript. `babel-jest`
+recommends using `ts-jest` if using Typescript.

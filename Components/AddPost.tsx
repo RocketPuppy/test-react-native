@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+import { Component } from "react";
 import { ScrollView, View, Button, Text, TextInput, Alert, StyleSheet } from 'react-native';
 
 export default class AddPost extends Component {
