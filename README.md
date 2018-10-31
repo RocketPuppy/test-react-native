@@ -46,3 +46,7 @@ https://docs.microsoft.com/en-us/appcenter/distribution/codepush/using-ui. See
 https://docs.microsoft.com/en-us/appcenter/distribution/codepush/react-native#plugin-usage
 for specific information about the CodePush integration with React Native. Pay
 special attention to the options available to the higher-order component, `codePush`.
+
+## Configuring Typescript
+
+Follow these directions https://github.com/Microsoft/TypeScript-React-Native-Starter
