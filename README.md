@@ -35,3 +35,14 @@ the build then delete the configuration and reconfigure.
 
 See https://docs.microsoft.com/en-us/appcenter/build/ios/code-signing for code
 signing instructions.
+
+## Configuring CodePush
+
+Follow these directions
+https://docs.microsoft.com/en-us/appcenter/distribution/codepush/. You will need
+to create deployments to get through all of the setup. You can do that in the
+CodePush UI as described here
+https://docs.microsoft.com/en-us/appcenter/distribution/codepush/using-ui. See
+https://docs.microsoft.com/en-us/appcenter/distribution/codepush/react-native#plugin-usage
+for specific information about the CodePush integration with React Native. Pay
+special attention to the options available to the higher-order component, `codePush`.
