@@ -14,25 +14,11 @@ import AllPosts from './Components/AllPosts';
 import AddPost from './Components/AddPost';
 
 const client = new AWSAppSyncClient({
-    url: AppSync.graphqlEndpoint,
-    region: AppSync.region,
+    url: AppSync.aws_appsync_graphqlEndpoint,
+    region: AppSync.aws_appsync_region,
     auth: {
-        type: AUTH_TYPE.API_KEY,
-        apiKey: AppSync.apiKey,
-
-        //type: AUTH_TYPE.AWS_IAM,
-        //Note - Testing purposes only
-        /*credentials: new AWS.Credentials({
-            accessKeyId: AWS_ACCESS_KEY_ID,
-            secretAccessKey: AWS_SECRET_ACCESS_KEY
-        })*/
-
-        //IAM Cognito Identity using AWS Amplify
-        //credentials: () => Auth.currentCredentials(),
-
-        //Cognito User Pools using AWS Amplify
-        // type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
-        // jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
+        type: AppSync.aws_appsync_authenticationType,
+        apiKey: AppSync.aws_appsync_apiKey
     },
 });
 
@@ -113,11 +99,12 @@ const AddPostWithData = graphql(NewPostMutation, {
             variables: post,
             optimisticResponse: () => ({ addPost: { ...post, __typename: 'Post', version: 1 } }),
         })
-})
-    }),
+	})
+    ,
     options: {
         refetchQueries: [{ query: AllPostsQuery }],
-        update: (dataProxy, { data: { addPost } }) => {
+        update: (dataProxy, dataData) => {
+	  const addPost = dataData.data.addPost;
           const query = AllPostsQuery;
           const data = dataProxy.readQuery({ query });
 
