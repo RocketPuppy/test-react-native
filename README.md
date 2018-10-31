@@ -56,3 +56,10 @@ with Typescript definitions directly. `aws-sdk`, `react`, `react-native`, `jest`
 all have type definitions available. `graphql-tag` recommends using
 `ts-transform-graphql-tag` instead if done via Typescript. `babel-jest`
 recommends using `ts-jest` if using Typescript.
+
+## Configuring AppSync
+
+Follow directions here
+https://docs.aws.amazon.com/appsync/latest/devguide/building-a-client-app-reactnative.html
+for a basic guide. You might need to manually install the `apollo-client`
+package in addition to the other packages listed there.
