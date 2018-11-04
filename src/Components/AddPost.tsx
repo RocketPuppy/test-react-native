@@ -1,36 +1,47 @@
-import React from "react";
+import * as React from "react";
 import { Component } from "react";
-import { ScrollView, View, Button, Text, TextInput, Alert, StyleSheet } from 'react-native';
+import { View, Button, Text, TextInput, StyleSheet } from 'react-native';
+import { Props as NewPostProps } from "../Queries/NewPostMutation";
 
-export default class AddPost extends Component {
+type Props = NewPostProps;
 
-    constructor(props) {
+interface StateFields {
+  id: number;
+  title: string;
+  author: string;
+};
+
+interface State {
+  fields: StateFields;
+}
+
+export default class AddPost extends Component<Props, State> {
+
+    constructor(props: Props)  {
         super(props);
+
         this.state = this.getInitialState();
     }
 
-    static defaultProps = {
-        onAdd: () => null
-    }
-
     getInitialState = () => ({
-        id: '',
+      fields: {
+        id: 0,
         title: '',
         author: '',
+      }
     });
 
-    handleChange = (field, value) => {
-
+    handleChange = <K extends keyof StateFields, V extends StateFields[K]>(field: K, value: V) => {
         this.setState({
-            [field]: value
+            fields: { ...this.state.fields, [field]: value }
         });
     }
 
     handleAdd = () => {
-        const { id, title, author } = this.state;
+        const { id, title, author } = this.state.fields;
 
         this.setState(this.getInitialState(), () => {
-            this.props.onAdd({ id, title, author });
+            this.props.onAdd({ id, title, author, __typename: "Post", version: 0 });
         });
     }
 
@@ -42,9 +53,9 @@ export default class AddPost extends Component {
         return (
             <View style={styles.container}>
                 <Text>Add new Post</Text>
-                <TextInput style={{ borderWidth: 1 }} value={this.state.id} onChangeText={this.handleChange.bind(this, 'id')} placeholder="id" />
-                <TextInput style={{ borderWidth: 1 }} value={this.state.title} onChangeText={this.handleChange.bind(this, 'title')} placeholder="title" />
-                <TextInput style={{ borderWidth: 1 }} value={this.state.author} onChangeText={this.handleChange.bind(this, 'author')} placeholder="author" />
+                <TextInput style={{ borderWidth: 1 }} value={this.state.fields.id.toString()} onChangeText={(v) => this.handleChange('id', parseInt(v, 10))} placeholder="id" />
+                <TextInput style={{ borderWidth: 1 }} value={this.state.fields.title} onChangeText={(v) => this.handleChange('title', v)} placeholder="title" />
+                <TextInput style={{ borderWidth: 1 }} value={this.state.fields.author} onChangeText={(v) => this.handleChange('author', v)} placeholder="author" />
 
                 <View>
                     <Button title="Add" onPress={this.handleAdd} />

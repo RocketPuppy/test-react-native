@@ -1,10 +1,20 @@
-import React from "react";
+import * as React from "react";
 import { Component } from "react";
 import { ScrollView, View, Button, Text, TextInput, Alert, StyleSheet } from 'react-native';
+import { Props as AllPostsProps } from "../Queries/AllPostsQuery";
+import { Props as DeletePostProps } from "../Queries/DeletePostMutation";
+import { Props as UpdatePostProps } from "../Queries/UpdatePostMutation";
+import { Post } from "../Types";
 
-export default class AllPosts extends Component {
+export type Props = AllPostsProps & DeletePostProps & UpdatePostProps;
 
-    constructor(props) {
+interface State {
+    editing: { [id: number]: Post };
+}
+
+export default class AllPosts extends Component<Props, State> {
+
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -18,7 +28,7 @@ export default class AllPosts extends Component {
         onEdit: () => null,
     }
 
-    handleDelete = async (post) => {
+    handleDelete = async (post: Post) => {
 
         const confirm = await new Promise((resolve, reject) => {
             Alert.alert('Confirm delete', 'Are you sure?', [
@@ -32,20 +42,20 @@ export default class AllPosts extends Component {
         }
     }
 
-    handleEdit = (post) => {
+    handleEdit = (post: Post) => {
         const { editing } = this.state;
 
         this.setState({ editing: { ...editing, [post.id]: { ...post } } });
     }
 
-    handleEditCancel = (id) => {
+    handleEditCancel = (id: number) => {
         const { editing } = this.state;
         const { [id]: curr, ...others } = editing;
 
         this.setState({ editing: { ...others } });
     }
 
-    handleFieldEdit = (id, field, value) => {
+    handleFieldEdit = <K extends keyof Post, V extends Post[K]>(id: number, field: K, value: V) => {
         const { editing } = this.state;
         const editData = { ...editing[id] };
 
@@ -56,7 +66,7 @@ export default class AllPosts extends Component {
         });
     }
 
-    handleEditSave = (id) => {
+    handleEditSave = (id: number) => {
         const { editing } = this.state;
         const { [id]: editedPost, ...others } = editing;
 
@@ -66,7 +76,7 @@ export default class AllPosts extends Component {
         });
     }
 
-    renderOrEditPost = (post) => {
+    renderOrEditPost = (post: Post) => {
         const { editing } = this.state;
 
         const editData = editing[post.id];
@@ -105,17 +115,17 @@ export default class AllPosts extends Component {
     }
 
     render() {
-        const { posts, error } = this.props;
+        const { posts, error }: Props = this.props;
 
         if (error) {
-            console.log(error.networkError.response && JSON.parse(error.networkError.response._bodyText).message);
+            console.log(error);
             return <Text>{error.message}</Text>
         }
 
         return (
             <ScrollView contentContainerStyle={styles.scroller}>
                 <View style={styles.container}>
-                    {[].concat(posts).sort((a, b) => b.id - a.id).map(this.renderOrEditPost)}
+                    {(posts || []).sort((a, b) => b.id - a.id).map(this.renderOrEditPost)}
                 </View>
             </ScrollView>
         );
@@ -124,22 +134,20 @@ export default class AllPosts extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
-        alignItems: 'stretch',
         padding: 30,
         margin: 2,
     },
     item: {
         flexDirection: 'row',
         borderWidth: 1,
-        paddingTop: 10
+        paddingTop: 10,
     },
     itemColumn: {
-        flex: 1,
+        flexGrow: 1,
         flexDirection: 'column',
-        alignItems: 'stretch',
         justifyContent: 'center',
     },
     scroller: {

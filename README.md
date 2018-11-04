@@ -64,6 +64,16 @@ with the `@types/react-native` package, and after install the
 `fix_aws_sdk_types.sh` is run that fixes the conflicting types. See that script
 for links to various GitHub issues.
 
+The `graphql` types require including the `esnext` lib in `tsconfig.json`.
+
+The `aws-appsync` library requires types for one of its dependencies,
+`@redux-offline/redux-offline`. That dependency bundles its types with the
+library but because its directory structure is non-standard the Typescript
+compiler needs to be told explicitly where to look for its types. Additionally
+the `aws-appsync` library requires the types for its specific version of the
+`apollo-react` library. While it has its own dependency, using a newer version
+doesn't work.
+
 ## Configuring AppSync
 
 Follow directions here

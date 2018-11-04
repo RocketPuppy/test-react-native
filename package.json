@@ -5,51 +5,34 @@
   "scripts": {
     "postinstall": "./scripts/fix_aws_sdk_types.sh",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "prebuild": "mkdir -p build && rm -rf build/*",
+    "build": "yarn tsc",
+    "watch": "yarn tsc -w"
   },
   "dependencies": {
     "apollo-client": "2.4.2",
     "aws-appsync": "^1.4.0",
     "aws-appsync-react": "^1.2.0",
-    "aws-sdk": "^2.345.0",
-    "flow-typed": "^2.5.1",
+    "aws-sdk": "^2.346.0",
     "graphql-tag": "^2.10.0",
     "react": "16.6.0-alpha.8af6728",
     "react-apollo": "^2.2.4",
-    "react-native": "0.57.4",
+    "react-native": "^0.57.4",
     "ts-jest": "^23.10.4",
     "ts-transform-graphql-tag": "^0.2.0"
   },
   "devDependencies": {
     "@aws-amplify/cli": "^0.1.29",
-    "@types/aws-sdk": "^2.7.0",
+    "@types/graphql": "^14.0.3",
     "@types/jest": "^23.3.9",
     "@types/react": "^16.4.18",
     "@types/react-native": "^0.57.7",
     "babel-jest": "23.6.0",
-    "flow-bin": "^0.85.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.3",
-    "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.6.0-alpha.8af6728",
+    "tslib": "^1.9.3",
     "typescript": "^3.1.4"
-  },
-  "jest": {
-    "preset": "react-native",
-      "moduleFileExtensions": [
-        "ts",
-        "tsx",
-        "js"
-      ],
-      "transform": {
-        "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
-        "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-      },
-      "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-      "testPathIgnorePatterns": [
-        "\\.snap$",
-        "<rootDir>/node_modules/"
-      ],
-      "cacheDirectory": ".jest/cache"
   }
 }
