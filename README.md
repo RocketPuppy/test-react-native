@@ -57,6 +57,13 @@ all have type definitions available. `graphql-tag` recommends using
 `ts-transform-graphql-tag` instead if done via Typescript. `babel-jest`
 recommends using `ts-jest` if using Typescript.
 
+There is a problem with the `aws-sdk` package. It relies on some NodeJS types
+and pulls in the `@types/node` package. A React Native environment does not
+provide precisely the same types. The `@types/node` package conflicts slightly
+with the `@types/react-native` package, and after install the
+`fix_aws_sdk_types.sh` is run that fixes the conflicting types. See that script
+for links to various GitHub issues.
+
 ## Configuring AppSync
 
 Follow directions here
