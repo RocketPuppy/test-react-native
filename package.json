@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "apollo-client": "^2.4.5",
+    "apollo-client": "2.4.2",
     "aws-appsync": "^1.4.0",
     "aws-appsync-react": "^1.2.0",
     "aws-sdk": "^2.345.0",
