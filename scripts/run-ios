@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+yarn build && react-native run-ios $@ && yarn watch

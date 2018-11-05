@@ -5,7 +5,7 @@ Make sure you have XCode version >=9.4. Install the XCode command line tools fro
 To run the app for iOS run:
 
 ```
-react-native run-ios
+yarn ios
 ```
 
 You can also open the AwesomeProject.xcodeproj file in XCode and tell XCode to
@@ -22,7 +22,7 @@ xcrun simctl list devices
 Use the `--simulator` flag when running via command line to select a different simulator.
 
 ```
-react-native run-ios --simulator="iPad"
+yarn ios --simulator="iPad"
 ```
 
 ## Configuring AppCenter
@@ -73,6 +73,17 @@ compiler needs to be told explicitly where to look for its types. Additionally
 the `aws-appsync` library requires the types for its specific version of the
 `apollo-react` library. While it has its own dependency, using a newer version
 doesn't work.
+
+There are a few custom scripts in `package.json` and the `scripts/` folder.
+These scripts exist to aid in building the project with Typescript. The way it
+works is pretty simple. Typescript builds the project first, outputting
+compiled Javascript files in the `src/` directory. Then React Native is run to
+build the project using those built Javascript files. When developing, React
+Native will watch for changes to those JS files and recompile if hot reloading
+is enabled on the device, otherwise it will recompile when asked. The
+Typescript compiler is run in watch mode, which watches for changes in the
+Typescript and recompiles. If there are no errors the new Javascript is output
+and picked up by React Native.
 
 ## Configuring AppSync
 

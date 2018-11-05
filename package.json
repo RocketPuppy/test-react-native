@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "postinstall": "./scripts/fix_aws_sdk_types.sh",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "yarn build && node node_modules/react-native/local-cli/cli.js start",
+    "ios": "./scripts/run-ios",
     "test": "jest",
-    "prebuild": "mkdir -p build && rm -rf build/*",
+    "prebuild": "yarn clean",
+    "clean": "find src/ -name \"*.js\" -or -name \"*.map\" | xargs rm -rf",
     "build": "yarn tsc",
     "watch": "yarn tsc -w"
   },
