@@ -12,6 +12,7 @@ import { UpdatePostHOC } from './Queries/UpdatePostMutation';
 import AllPosts from './Components/AllPosts';
 import AddPost from './Components/AddPost';
 import { Post } from "./Types";
+import Bluetooth from "./Bluetooth";
 
 const client = new AWSAppSyncClient({
     url: AppSync.aws_appsync_graphqlEndpoint,
@@ -32,6 +33,7 @@ class App extends Component<{}, State> {
     render() {
         return (
         <View style={styles.container}>
+            <Bluetooth />
             <AddPostWithData />
             <AllPostsWithData />
         </View>
